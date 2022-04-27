@@ -1,17 +1,53 @@
 name: CI
 
-on: [push]
+
+# on: [push]
+
+# jobs:
+#   build:
+
+#     runs-on: ubuntu-latest
+    
+#     steps:
+#     - uses: actions/checkout@v1
+#     - name: Run a one-line script
+#       run: echo Hello, world!
+#     - name: Run a multi-line script
+#       run: |
+#         echo Add other actions to build,
+#         echo test, and deploy your project.
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        default: 'coral-dev'
+
+# env:
+#   DOCKER_SERVER: 'zand.jfrog.io'
+#   DOCKER_REPOSITORY: 'coral-docker'
+#   MAVEN_USERNAME: ${{ secrets.ACTION_ID }}
+#   MAVEN_CENTRAL_TOKEN: ${{ secrets.ACTION_PAT }}
+#   JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
+#   JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+      - uses: actions/checkout@v1
+
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Compile
+        if: ${{ github.event.inputs.tag != 'coral' }} # Non-Prod
+        run: |
+          echo running nonprod step
+
+      - name: Compile Prod
+        if: ${{ github.event.inputs.tag == 'coral' }} # Prod
+        run: |
+          echo running prod step

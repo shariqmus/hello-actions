@@ -43,11 +43,11 @@ jobs:
         run: echo Hello, world!
 
       - name: Compile
-        if: ${{ github.event.inputs.tag != 'coral' }} # Non-Prod
+        if: ${{ github.event.inputs.environment != 'coral' }} # Non-Prod
         run: |
           echo running nonprod step
 
       - name: Compile Prod
-        if: ${{ github.event.inputs.tag == 'coral' }} # Prod
+        if: ${{ github.event.inputs.environment == 'coral' }} # Prod
         run: |
           echo running prod step

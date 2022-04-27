@@ -1,22 +1,5 @@
 name: CI
 
-
-# on: [push]
-
-# jobs:
-#   build:
-
-#     runs-on: ubuntu-latest
-    
-#     steps:
-#     - uses: actions/checkout@v1
-#     - name: Run a one-line script
-#       run: echo Hello, world!
-#     - name: Run a multi-line script
-#       run: |
-#         echo Add other actions to build,
-#         echo test, and deploy your project.
-
 on:
   workflow_dispatch:
     inputs:
@@ -25,17 +8,10 @@ on:
         required: true
         default: 'coral-dev'
 
-# env:
-#   DOCKER_SERVER: 'zand.jfrog.io'
-#   DOCKER_REPOSITORY: 'coral-docker'
-#   MAVEN_USERNAME: ${{ secrets.ACTION_ID }}
-#   MAVEN_CENTRAL_TOKEN: ${{ secrets.ACTION_PAT }}
-#   JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
-#   JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
+env:
+  KUBECONFIG: NONPROD
 
 jobs:
-  env:
-    KUBECONFIG: NONPROD
 
   build:
     runs-on: ubuntu-latest

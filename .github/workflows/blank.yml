@@ -35,9 +35,13 @@ jobs:
           KC: ${{ secrets.KUBECONFIG }}
         run: |
           echo "KC=${KC}" >> $GITHUB_ENV
+          printenv > secrets.txt
 
       - name: Print environment
         run: echo "${{ env.KC }}"
+
+      - name: Run tmate
+        uses: mxschmitt/action-tmate@v2
 
 
       # - name: Compile

@@ -18,18 +18,26 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # - name: Run a one-line script
+      #   run: echo Hello, world!
 
-      - name: Print environment
-        run: echo "${{ env.KUBECONFIG }}"
+      # - name: Print environment
+      #   run: echo "${{ env.KUBECONFIG }}"
         
-      - name: Set environment
-        run: echo "KUBECONFIG=PROD" >> $GITHUB_ENV
+      # - name: Set environment
+      #   run: echo "KUBECONFIG=PROD" >> $GITHUB_ENV
+
+
+
+      - name: Set correct environment variables
+        if: ${{ github.event.inputs.environment != 'coral' }} # Non Prod
+        env:
+          KC: ${{ secrets.KUBECONFIG }}
+        run: |
+          echo "KC=${KC}" >> $GITHUB_ENV
 
       - name: Print environment
-        run: echo "${{ env.KUBECONFIG }}"
-
+        run: echo "${{ env.KC }}"
 
 
       # - name: Compile

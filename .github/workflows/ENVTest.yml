@@ -6,7 +6,7 @@ on:
       environment:
         description: 'Environment'
         required: true
-        default: 'coral-dev'
+        default: 'coral-uat'
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -18,8 +18,9 @@ jobs:
       - name: Print environment
         run: echo building.......
 
-  deploy-dev:
+  deploy-uat:
     runs-on: 'ubuntu-latest'
+    if: ${{ github.event.inputs.environment == 'coral-uat' }}
     environment: 'uat'
     steps:
 
@@ -31,6 +32,7 @@ jobs:
 
   deploy-prod:
     runs-on: 'ubuntu-latest'
+    if: ${{ github.event.inputs.environment == 'coral' }}
     environment: 'prd'
     steps:
 

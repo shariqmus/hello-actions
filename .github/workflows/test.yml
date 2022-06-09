@@ -1,0 +1,33 @@
+name: ENVTest 
+description: Tests Environments feature
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        default: 'coral-dev'
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      run: |
+        echo building.......
+
+  deploy-dev:
+    runs-on: 'ubuntu-latest'
+    environment: 'uat'
+    # needs: build-and-publish
+    steps:
+      run: |
+        echo deploying [uat].......
+  deploy-prod:
+    runs-on: 'ubuntu-latest'
+    environment: 'prd'
+    # needs: [build-and-publish, deploy-dev]
+    steps:
+      run: |
+        echo deploying [prd].......
+
+

@@ -12,22 +12,32 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      run: |
-        echo building.......
+
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Print environment
+        run: echo building.......
 
   deploy-dev:
     runs-on: 'ubuntu-latest'
     environment: 'uat'
-    # needs: build-and-publish
     steps:
-      run: |
-        echo deploying [uat].......
+
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Print environment
+        run: echo deploying [uat].......
+
   deploy-prod:
     runs-on: 'ubuntu-latest'
     environment: 'prd'
-    # needs: [build-and-publish, deploy-dev]
     steps:
-      run: |
-        echo deploying [prd].......
 
+      - name: Checkout
+        uses: actions/checkout@v1
 
+      - name: Print environment
+        run: echo deploying [prd].......
+        

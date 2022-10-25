@@ -22,6 +22,14 @@ jobs:
       - name: Print
         run: echo ${{ github.event.inputs.run_terraform }}
 
+      - name: A
+        if: ${{ github.event.inputs.run_terraform == true }}
+        run: echo ${{ github.event.inputs.run_terraform }}
+
+      - name: B
+        if: ${{ github.event.inputs.run_terraform == 'true' }}
+        run: echo ${{ github.event.inputs.run_terraform }}
+
   # deploy-uat:
   #   runs-on: 'ubuntu-latest'
   #   if: ${{ github.event.inputs.environment == 'coral-uat' }}

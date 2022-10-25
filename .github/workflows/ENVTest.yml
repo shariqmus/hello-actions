@@ -7,6 +7,10 @@ on:
         description: 'Environment'
         required: true
         default: 'coral-uat'
+      run_terraform:
+        description: Should we run the terraform step
+        type: boolean
+        default: true   
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -15,29 +19,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Print environment
-        run: echo building.......
+      - name: Print
+        run: echo ${{ github.event.inputs.run_terraform }}
 
-  deploy-uat:
-    runs-on: 'ubuntu-latest'
-    if: ${{ github.event.inputs.environment == 'coral-uat' }}
-    environment: 'uat'
-    steps:
+  # deploy-uat:
+  #   runs-on: 'ubuntu-latest'
+  #   if: ${{ github.event.inputs.environment == 'coral-uat' }}
+  #   environment: 'uat'
+  #   steps:
 
-      - name: Checkout
-        uses: actions/checkout@v1
+  #     - name: Checkout
+  #       uses: actions/checkout@v1
 
-      - name: Print environment
-        run: echo deploying [uat].......
+  #     - name: Print environment
+  #       run: echo deploying [uat].......
 
-  deploy-prod:
-    runs-on: 'ubuntu-latest'
-    if: ${{ github.event.inputs.environment == 'coral' }}
-    environment: 'prd'
-    steps:
+  # deploy-prod:
+  #   runs-on: 'ubuntu-latest'
+  #   if: ${{ github.event.inputs.environment == 'coral' }}
+  #   environment: 'prd'
+  #   steps:
 
-      - name: Checkout
-        uses: actions/checkout@v1
+  #     - name: Checkout
+  #       uses: actions/checkout@v1
 
-      - name: Print environment
-        run: echo deploying [prd].......
+  #     - name: Print environment
+  #       run: echo deploying [prd].......

@@ -26,7 +26,7 @@ jobs:
       - name: Set Matrix
         id: set-matrix
         # run: echo "::set-output name=api_matrix::$(cat deploy-list.json | jq -c '.apiList')"
-        run: echo "{api_matrix}={$(cat deploy-list.json | jq -c '.apiList')}" >> $GITHUB_OUTPUT
+        run: echo "api_matrix=$(cat deploy-list.json | jq -c '.apiList')" >> $GITHUB_OUTPUT
 
     outputs:
       api_matrix: ${{ steps.set-matrix.outputs.api_matrix }}

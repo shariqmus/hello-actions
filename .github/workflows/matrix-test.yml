@@ -1,0 +1,46 @@
+name: MuleSoft Build
+
+on: 
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Github Release Branch Name'
+        required: true
+        default: 'master'
+
+jobs:
+
+  build-matrix:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Branch
+        uses: actions/checkout@v2
+        with:          
+          ref: "${{ github.event.inputs.branch }}"
+
+      - name: List of APIs in this build
+        run: cat deploy-list.json
+
+      - name: Set Matrix
+        id: set-matrix
+        # run: echo "::set-output name=api_matrix::$(cat deploy-list.json | jq -c '.apiList')"
+        run: echo "{api_matrix}={$(cat deploy-list.json | jq -c '.apiList')}" >> $GITHUB_OUTPUT
+
+    outputs:
+      api_matrix: ${{ steps.set-matrix.outputs.api_matrix }}
+
+  build-api:
+    needs: build-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        api_name: ${{ fromJson(needs.build-matrix.outputs.api_matrix) }}
+    steps:
+      - name: Debug 
+        run: |
+          echo ${{ matrix.api_name }} 
+          
+
+        

@@ -1,0 +1,8 @@
+{
+  "apiList": [
+"mule-e-channels-global",
+"mule-e-dms-documents",
+"mule-e-messaging-events",
+"mule-p-core-processing"    
+  ]
+}

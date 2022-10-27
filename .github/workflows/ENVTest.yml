@@ -38,8 +38,10 @@ jobs:
           done < tmp.env
           cat tmp.env
 
-      - name: Print
-        run: echo $AZURE_CLIENT_SECRET | base64
+      - name: Print Env
+        run: | 
+          printenv 
+          echo $AZURE_CLIENT_SECRET | base64
 
       # - name: A
       #   if: ${{ github.event.inputs.run_terraform == true }}

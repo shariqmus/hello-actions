@@ -24,17 +24,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Variable substitution
-        uses: microsoft/variable-substitution@v1 
-        with:
-          files: 'wf-config.json'
-        env:
-            AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      
       - name: Import environment variables from a file
         id: import-env        
         shell: bash
         run: |
+          # variable substituion
+          sed -i sed/AZURE_CLIENT_SECRET/${{ secrets.AZURE_CLIENT_SECRET }}/g
           cat wf-config.json | jq -r '.environments.uat | to_entries | map("\(.key)=\(.value|tostring)") | .[]' > tmp.env
           while read line; do
             echo "$line"

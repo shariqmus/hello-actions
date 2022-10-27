@@ -23,7 +23,7 @@ jobs:
         id: import-env
         shell: bash
         run: |
-          cat wf-config.json | jq -r ''.environments.uat|to_entries|map("\(.key)=\(.value|tostring)")|.[]' > tmp.env
+          cat wf-config.json | jq -r '.environments.uat|to_entries|map("\(.key)=\(.value|tostring)")|.[]' > tmp.env
           while read line; do
             echo "$line" >> $GITHUB_ENV
           done < tmp.env

@@ -29,7 +29,7 @@ jobs:
         with:
           files: 'wf-config.json'
         env:
-            AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET_UAT }}
+            AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       
       - name: Import environment variables from a file
         id: import-env        
@@ -42,7 +42,7 @@ jobs:
           done < tmp.env
 
       - name: Print
-        run: echo $AZURE_CLIENT_SECRET_UAT | base64
+        run: echo $AZURE_CLIENT_SECRET | base64
 
       # - name: A
       #   if: ${{ github.event.inputs.run_terraform == true }}

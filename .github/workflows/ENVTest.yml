@@ -17,18 +17,27 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
+
+      - name: Import environment variables from a file
+        id: import-env
+        shell: bash
+        run: |
+          cat wf-config.json | jq -r ''.environments.uat|to_entries|map("\(.key)=\(.value|tostring)")|.[]' > tmp.env
+          while read line; do
+            echo "$line" >> $GITHUB_ENV
+          done < tmp.env
 
       - name: Print
-        run: echo ${{ github.event.inputs.run_terraform }}
+        run: echo $AZURE_TENANT_ID
 
-      - name: A
-        if: ${{ github.event.inputs.run_terraform == true }}
-        run: echo ${{ github.event.inputs.run_terraform }}
+      # - name: A
+      #   if: ${{ github.event.inputs.run_terraform == true }}
+      #   run: echo ${{ github.event.inputs.run_terraform }}
 
-      - name: B
-        if: ${{ github.event.inputs.run_terraform == 'true' }}
-        run: echo ${{ github.event.inputs.run_terraform }}
+      # - name: B
+      #   if: ${{ github.event.inputs.run_terraform == 'true' }}
+      #   run: echo ${{ github.event.inputs.run_terraform }}
 
   # deploy-uat:
   #   runs-on: 'ubuntu-latest'

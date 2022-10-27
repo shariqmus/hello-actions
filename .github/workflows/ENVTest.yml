@@ -29,7 +29,7 @@ jobs:
         with:
           files: 'wf-config.json'
         env:
-            AZURE_CLIENT_SECRET_UAT: ${{ secrets.AZURE_CLIENT_SECRET_UAT }}
+            AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET_UAT }}
       
       - name: Import environment variables from a file
         id: import-env        

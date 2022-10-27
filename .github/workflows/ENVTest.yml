@@ -40,7 +40,7 @@ jobs:
 
       - name: Print Env
         run: | 
-          printenv 
+          printenv | sort
           echo $AZURE_CLIENT_SECRET | base64
 
       # - name: A

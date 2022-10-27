@@ -28,13 +28,15 @@ jobs:
         id: import-env        
         shell: bash
         run: |
-          # variable substituion
-          sed -i sed/AZURE_CLIENT_SECRET/${{ secrets.AZURE_CLIENT_SECRET }}/g
+          # obtain environment specific values
           cat wf-config.json | jq -r '.environments.uat | to_entries | map("\(.key)=\(.value|tostring)") | .[]' > tmp.env
+          # variable substituion
+          sed -i 's/AZURE_CLIENT_SECRET/${{ secrets.AZURE_CLIENT_SECRET }}/g' wf-config.json          
           while read line; do
             echo "$line"
             echo "$line" >> $GITHUB_ENV
           done < tmp.env
+          cat tmp.env
 
       - name: Print
         run: echo $AZURE_CLIENT_SECRET | base64

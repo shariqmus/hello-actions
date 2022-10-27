@@ -30,6 +30,7 @@ jobs:
         run: |
           cat wf-config.json | jq -r '.environments.uat | to_entries | map("\(.key)=\(.value|tostring)") | .[]' > tmp.env
           while read line; do
+            echo "$line"
             echo "$line" >> $GITHUB_ENV
           done < tmp.env
 

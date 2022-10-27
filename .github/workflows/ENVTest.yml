@@ -25,6 +25,7 @@ jobs:
 
       - name: Import environment variables from a file
         id: import-env
+        environment: uat
         shell: bash
         run: |
           cat wf-config.json | jq -r '.environments.uat | to_entries | map("\(.key)=\(.value|tostring)") | .[]' > tmp.env

@@ -2,7 +2,8 @@ name: IfElseTest
 description: Checks If/else
 
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
+  workflow_call:
     inputs:
       environment:
         description: 'Environment'
